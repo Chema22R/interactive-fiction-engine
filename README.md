@@ -20,11 +20,16 @@ The application defines the maze and the adventure itself by processing XML file
 |- /.github
     |- ...
 |- /adventures
-    |- example_EN.xml    |- example_ES.xml    |- example.dtd
+    |- example_EN.xml
+    |- example_ES.xml
+    |- example.dtd
 |- /bin
     |- ...
 |- /src
     |- ...
 |- _config.yml
-|- .gitignore|- Development Requirements.pdf
-|- LICENSE|- README.md
+|- .gitignore
+|- Development Requirements.pdf
+|- LICENSE
+|- README.md
+```
