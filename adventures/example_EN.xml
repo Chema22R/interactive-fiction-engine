@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE world SYSTEM "example.dtd">
+<world>
+	<player scene="scene00"/>
+	<scenes>
+		<scene id="scene00" numDoors="3" numBoxes="1" msj="You are in a dark room with only one box in the center and three doors (one to the east, one to the west and one to the south).">
+			<action dest="box00" msj="Open the box"/>
+			<action dest="door00" msj="Go east"/>
+			<action dest="door01" msj="Go west"/>
+			<action dest="door02" msj="Go south"/>
+		</scene>
+		<scene id="scene01" numDoors="3" numBoxes="2" msj="In this room there are two boxes and three doors (one to the east, one to the west and one to the south).">
+			<action dest="box01" msj="Open the first box"/>
+			<action dest="box02" msj="Open the second box"/>
+			<action dest="door03" msj="Go east"/>
+			<action dest="door00" msj="Go west"/>
+			<action dest="door04" msj="Go south"/>
+		</scene>
+		<scene id="scene02" numDoors="3" numBoxes="1" msj="In this room you can breathe better, there is only one box in the center and three doors (one to the north, one to the east and one to the west).">
+			<action dest="box03" msj="Open the box"/>
+			<action dest="door02" msj="Go north"/>
+			<action dest="door05" msj="Go east"/>
+			<action dest="door06" msj="Go west"/>
+		</scene>
+		<scene id="scene03" numDoors="2" numBoxes="1" msj="You are in a room with a rare atmosphere, a box in the center and two doors (one to the north and one to the west).">
+			<action dest="box04" msj="Open the box"/>
+			<action dest="door04" msj="Go north"/>
+			<action dest="door05" msj="Go west"/>
+		</scene>
+		<scene id="final" numDoors="0" numBoxes="0" msj="End of the game, you have won. Congratulations!!"/>
+	</scenes>
+	<props>
+		<prop id="door00" type="door" state="false" scene01="scene00" scene02="scene01">
+			<action condition="open" msj="The door is open and we cross it."/>
+			<action condition="closed" msj="The door is closed, a key is necessary."/>
+		</prop>
+		
+		<prop id="door01" type="door" state="true" scene01="scene00" scene02="scene00">
+			<action condition="open" msj="The door is open, but behind it there is a wall."/>
+			<action condition="closed" msj="The door is closed, a key is necessary."/>
+		</prop>
+		
+		<prop id="door02" type="door" state="false" scene01="scene00" scene02="scene02">
+			<action condition="open" msj="The door is open and we cross it."/>
+			<action condition="closed" msj="The door is closed, a key is necessary."/>
+		</prop>
+		
+		<prop id="door03" type="door" state="true" scene01="scene01" scene02="scene01">
+			<action condition="open" msj="The door is open, but behind it there is a wall."/>
+			<action condition="closed" msj="The door is closed, a key is necessary."/>
+		</prop>
+		
+		<prop id="door04" type="door" state="true" scene01="scene01" scene02="scene03">
+			<action condition="open" msj="The door is open and we cross it."/>
+			<action condition="closed" msj="The door is closed, a key is necessary."/>
+		</prop>
+		
+		<prop id="door05" type="door" state="false" scene01="scene03" scene02="scene02">
+			<action condition="open" msj="The door is open and we cross it."/>
+			<action condition="closed" msj="The door is closed and has no lock, how strange..."/>
+		</prop>
+		
+		<prop id="door06" type="door" state="false" scene01="scene02" scene02="final">
+			<action condition="open" msj="The door is open and we cross it, we have managed to go outside!"/>
+			<action condition="closed" msj="The door is closed and looks different..."/>
+		</prop>
+		
+		<prop id="box00" type="box" scene01="scene00" unlock="door00">
+			<action msj="The box is open and inside is a key with the message 'door 0' engraved."/>
+		</prop>
+		
+		<prop id="box01" type="box" scene01="scene01" unlock="null">
+			<action msj="The box is empty."/>
+		</prop>
+		
+		<prop id="box02" type="box" scene01="scene01" unlock="door02">
+			<action msj="The box is open and inside is a key with the message 'door 2' engraved."/>
+		</prop>
+		
+		<prop id="box03" type="box" scene01="scene02" unlock="door06">
+			<action msj="The box is open and inside is a key with the message 'freedom' engraved."/>
+		</prop>
+		
+		<prop id="box04" type="box" scene01="scene03" unlock="null">
+			<action msj="In the box there is only one paper with something written: 'YOU WILL NEVER LEAVE THIS PLACE'."/>
+		</prop>
+	</props>
+</world>
+<!--
+DTD generated with: http://xml.mherman.org/
+Structure:
+	world
+		player [scene]
+		scenes
+			scene [id, numDoors, numBoxes, msj]
+				action [dest, msj] (dest is the intended recipient of the action, the prop that runs when choosing that option)
+		props
+			prop [id, type, state, scene01, scene02] (door case: type could be door or box, scene01 and scene02 are the two scenes that link that door)
+				action [condition, msj] (door case: condition could be open or closed)
+			prop [id, type, state, scene01, unlock] (box case: type could be door or box, scene01 is the scene to which the prop belongs and unlock is the prop that unlocks when executed)
+				action [msj] (box case)
+-->

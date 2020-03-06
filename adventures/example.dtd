@@ -1,0 +1,31 @@
+<!ELEMENT world (player,scenes,props)>
+
+<!ELEMENT player EMPTY>
+<!ATTLIST player
+  scene CDATA #REQUIRED>
+
+<!ELEMENT scenes (scene)+>
+
+<!ELEMENT props (prop)*>
+
+<!ELEMENT scene (action)*>
+<!ATTLIST scene
+  id ID #REQUIRED
+  numDoors CDATA #REQUIRED
+  numBoxes CDATA #REQUIRED
+  msj CDATA #REQUIRED>
+
+<!ELEMENT prop (action)+>
+<!ATTLIST prop
+  id ID #REQUIRED
+  type CDATA #REQUIRED
+  state CDATA #IMPLIED
+  scene01 CDATA #REQUIRED
+  scene02 CDATA #IMPLIED
+  unlock CDATA #IMPLIED>
+
+<!ELEMENT action EMPTY>
+<!ATTLIST action
+  condition CDATA #IMPLIED
+  dest CDATA #IMPLIED
+  msj CDATA #REQUIRED>

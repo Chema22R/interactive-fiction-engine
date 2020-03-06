@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE world SYSTEM "example.dtd">
+<world>
+	<player scene="scene00"/>
+	<scenes>
+		<scene id="scene00" numDoors="3" numBoxes="1" msj="Te encuentras en una habitación oscura con solo una caja en el centro y tres puertas (una al este, una al oeste y otra al sur).">
+			<action dest="box00" msj="Abrir la caja"/>
+			<action dest="door00" msj="Ir hacia el este"/>
+			<action dest="door01" msj="Ir hacia el oeste"/>
+			<action dest="door02" msj="Ir hacia el sur"/>
+		</scene>
+		<scene id="scene01" numDoors="3" numBoxes="2" msj="En esta habitación hay dos cajas y tres puertas (una al este, una al oeste y otra al sur).">
+			<action dest="box01" msj="Abrir la primera caja"/>
+			<action dest="box02" msj="Abrir la segunda caja"/>
+			<action dest="door03" msj="Ir hacia el este"/>
+			<action dest="door00" msj="Ir hacia el oeste"/>
+			<action dest="door04" msj="Ir hacia el sur"/>
+		</scene>
+		<scene id="scene02" numDoors="3" numBoxes="1" msj="En esta habitación se respira mejor, solo hay una caja en el centro y tres puertas (una al norte, una al este y otra al oeste).">
+			<action dest="box03" msj="Abrir la caja"/>
+			<action dest="door02" msj="Ir hacia el norte"/>
+			<action dest="door05" msj="Ir hacia el este"/>
+			<action dest="door06" msj="Ir hacia el oeste"/>
+		</scene>
+		<scene id="scene03" numDoors="2" numBoxes="1" msj="Te encuentras en una habitación con el ambiente enrarecido, una caja en el centro y dos puertas (una al norte y otra al oeste).">
+			<action dest="box04" msj="Abrir la caja"/>
+			<action dest="door04" msj="Ir hacia el norte"/>
+			<action dest="door05" msj="Ir hacia el oeste"/>
+		</scene>
+		<scene id="final" numDoors="0" numBoxes="0" msj="Final del juego, has ganado. Enhorabuena!!"/>
+	</scenes>
+	<props>
+		<prop id="door00" type="door" state="false" scene01="scene00" scene02="scene01">
+			<action condition="open" msj="La puerta se encuentra abierta y la cruzamos."/>
+			<action condition="closed" msj="La puerta se encuentra cerrada, es necesaria una llave."/>
+		</prop>
+		
+		<prop id="door01" type="door" state="true" scene01="scene00" scene02="scene00">
+			<action condition="open" msj="La puerta se encuentra abierta, pero detrás hay un muro."/>
+			<action condition="closed" msj="La puerta se encuentra cerrada, es necesaria una llave."/>
+		</prop>
+		
+		<prop id="door02" type="door" state="false" scene01="scene00" scene02="scene02">
+			<action condition="open" msj="La puerta se encuentra abierta y la cruzamos."/>
+			<action condition="closed" msj="La puerta se encuentra cerrada, es necesaria una llave."/>
+		</prop>
+		
+		<prop id="door03" type="door" state="true" scene01="scene01" scene02="scene01">
+			<action condition="open" msj="La puerta se encuentra abierta, pero detrás hay un muro."/>
+			<action condition="closed" msj="La puerta se encuentra cerrada, es necesaria una llave."/>
+		</prop>
+		
+		<prop id="door04" type="door" state="true" scene01="scene01" scene02="scene03">
+			<action condition="open" msj="La puerta se encuentra abierta y la cruzamos."/>
+			<action condition="closed" msj="La puerta se encuentra cerrada, es necesaria una llave."/>
+		</prop>
+		
+		<prop id="door05" type="door" state="false" scene01="scene03" scene02="scene02">
+			<action condition="open" msj="La puerta se encuentra abierta y la cruzamos."/>
+			<action condition="closed" msj="La puerta se encuentra cerrada y no tiene cerradura, que raro..."/>
+		</prop>
+		
+		<prop id="door06" type="door" state="false" scene01="scene02" scene02="final">
+			<action condition="open" msj="La puerta se encuentra abierta y la cruzamos, hemos conseguido salir al exterior!!"/>
+			<action condition="closed" msj="La puerta se encuentra cerrada y parece diferente..."/>
+		</prop>
+		
+		<prop id="box00" type="box" scene01="scene00" unlock="door00">
+			<action msj="La caja se encuentra abierta y dentro hay una llave con el mensaje 'puerta 0' grabado."/>
+		</prop>
+		
+		<prop id="box01" type="box" scene01="scene01" unlock="null">
+			<action msj="La caja se encuentra vacía."/>
+		</prop>
+		
+		<prop id="box02" type="box" scene01="scene01" unlock="door02">
+			<action msj="La caja se encuentra abierta y dentro hay una llave con el mensaje 'puerta 2' grabado."/>
+		</prop>
+		
+		<prop id="box03" type="box" scene01="scene02" unlock="door06">
+			<action msj="La caja se encuentra abierta y dentro hay una llave con el mensaje 'libertad' grabado."/>
+		</prop>
+		
+		<prop id="box04" type="box" scene01="scene03" unlock="null">
+			<action msj="En la caja solo hay un papel con algo escrito: 'NUNCA SALDRÁS DE AQUÍ'."/>
+		</prop>
+	</props>
+</world>
+<!--
+DTD generada con: http://xml.mherman.org/
+Estructura:
+	world
+		player [scene]
+		scenes
+			scene [id, numDoors, numBoxes, msj]
+				action [dest, msj] (dest es el prop destinatario de la accion, es decir, el prop que se ejecuta al elegir esa opcion)
+		props
+			prop [id, type, state, scene01, scene02] (caso door: type puede ser door o box, scene01 y scene02 indican las dos escenas que une esa puerta)
+				action [condition, msj] (caso door: condition peude ser open o closed)
+			prop [id, type, state, scene01, unlock] (caso box: type puede ser door o box, scene01 indica la escene a la que pertenece el prop y unlock es el prop que desbloquea al ejecutarse)
+				action [msj] (caso box)
+-->
